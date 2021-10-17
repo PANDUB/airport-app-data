@@ -1,7 +1,12 @@
 package com.app.airportapp.service;
 
 
+import com.app.airportapp.controller.AppDataController;
 import com.app.airportapp.entity.AirPortData;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -16,21 +21,24 @@ import java.util.stream.Collectors;
 
 @Service
 public class AppDataServiceImpl implements AppDataService {
-
+    Logger logger = LoggerFactory.getLogger(AppDataController.class);
     private ConcurrentHashMap<Integer, List<AirPortData>> map;
+    private MeterRegistry meterRegistry;
 
-    public AppDataServiceImpl() {
+    public AppDataServiceImpl(MeterRegistry meterRegistry) {
 
-        map = new ConcurrentHashMap();
+       this.map = new ConcurrentHashMap();
+       this.meterRegistry= meterRegistry;
+
     }
 
     @Override
     public List<AirPortData> getData(LocalDate date)  {
-
-        List<AirPortData> airPortData= map.get(date.getYear());
+        List<AirPortData> airPortData= map.get (date.getYear());
         if (airPortData == null || airPortData.isEmpty()){
             return  null;
         }
+
         return  airPortData.stream().filter( x -> x.getDayOfWeekList().contains(date.getDayOfWeek())).
                 sorted(Comparator.comparing(x -> x.getDepartureTime())).collect(Collectors.toList());
 
@@ -43,9 +51,7 @@ public class AppDataServiceImpl implements AppDataService {
         try {
             InputStream inputStream = getClass().getResourceAsStream("/flights.csv");
             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-
             List<AirPortData> lst = new ArrayList();
-
             while ((line = br.readLine()) != null)   //returns a Boolean value
             {
                 String[] appdata = line.split(splitBy, -1);
@@ -54,11 +60,9 @@ public class AppDataServiceImpl implements AppDataService {
                 airPortData.setDestination(appdata[1]);
                 airPortData.setDestinationAirportIATA(appdata[2]);
                 airPortData.setFlightNo(appdata[3]);
-
                 if (!"".equals(appdata[4])) {
 
                     airPortData.getDayOfWeekList().add(DayOfWeek.SUNDAY);
-
                 }
                 if (!"".equals(appdata[4])) {
                     airPortData.getDayOfWeekList().add(DayOfWeek.MONDAY);
@@ -78,16 +82,12 @@ public class AppDataServiceImpl implements AppDataService {
                 if (!"".equals(appdata[9])) {
                     airPortData.getDayOfWeekList().add(DayOfWeek.SATURDAY);
                 }
-
                 lst.add(airPortData);
-
             }
             lst.remove(0);
-
             map.put(LocalDate.now().getYear(), lst);
-
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("exception to read flight data", e);
         }
 
     }
