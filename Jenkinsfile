@@ -17,7 +17,7 @@ node {
         stage('Compile Stage') {
 
                 echo "compile the  code"
-                sh "mvn clean verify"
+               // sh 'mvn clean verify'
 
 
 
@@ -43,7 +43,7 @@ node {
 
                 script {
                    // docker.withRegistry('https://registry.hub.docker.com', ":$registryCredential")
-                     dockerImage = docker.build("panduboyina/bankingapp-2.0-snapshot:${BUILD_NUMBER}")
+                     dockerImage = docker.build("panduboyina/airport-app-1.0-snapshot:${BUILD_NUMBER}")
                 }
 
         }
