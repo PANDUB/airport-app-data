@@ -6,6 +6,10 @@ node {
         registryCredential = 'dockerhub'
         dockerImage = ''
     }
+    tools {
+        maven 'Maven 3.3.9'
+        jdk 'jdk8'
+    }
 
 
         stage('Checkout') {
@@ -17,7 +21,7 @@ node {
         stage('Compile Stage') {
 
                 echo "compile the  code"
-               // sh 'mvn clean verify'
+                sh 'mvn clean verify'
 
 
 
