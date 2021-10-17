@@ -17,7 +17,7 @@ node {
         stage('Compile Stage') {
 
                 echo "compile the  code"
-                sh './gradlew clean build'
+                sh "mvn clean verify"
 
 
 
