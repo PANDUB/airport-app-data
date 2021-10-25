@@ -1,6 +1,5 @@
-package mapper;
+package com.app.airportapp.mapper;
 
-import com.app.airportapp.entity.AirPortData;
 import com.app.airportapp.entity.AirPortDataResp;
 import org.springframework.jdbc.core.RowMapper;
 

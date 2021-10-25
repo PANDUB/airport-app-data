@@ -2,7 +2,7 @@ package com.app.airportapp.dao;
 
 import com.app.airportapp.entity.AirPortData;
 import com.app.airportapp.entity.AirPortDataResp;
-import mapper.AirPortDataMapper;
+import com.app.airportapp.mapper.AirPortDataMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
