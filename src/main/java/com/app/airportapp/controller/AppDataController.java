@@ -1,6 +1,7 @@
 package com.app.airportapp.controller;
 
 import com.app.airportapp.entity.AirPortData;
+import com.app.airportapp.entity.AirPortDataResp;
 import com.app.airportapp.exception.RecordNotFoundException;
 import com.app.airportapp.service.AppDataService;
 import io.micrometer.core.instrument.Counter;
@@ -32,9 +33,9 @@ public class AppDataController {
     }
 
     @GetMapping("/fetchAppData")
-    public ResponseEntity<List<AirPortData>> fetchAppData(@RequestParam("from") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate date) throws Exception {
-       // logger.info("Fetch Airport application data");
-        List<AirPortData>  airPortDataList= appDataService.getData(date);
+    public ResponseEntity<List<AirPortDataResp>> fetchAppData(@RequestParam("from") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate date) throws Exception {
+        logger.info("Fetch Airport application data");
+        List<AirPortDataResp>  airPortDataList= appDataService.getData(date);
           if (airPortDataList == null){
               throw new RecordNotFoundException("No record Present");
           }

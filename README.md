@@ -31,7 +31,6 @@ URL :http://localhost:8080/actuator/metrics
 curl --location --request GET 'http://localhost:8080/actuator/metrics'
 
 
-Note: I have added Jenkins pipeline script as well its under progress. 
 
 
 

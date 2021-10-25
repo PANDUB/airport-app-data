@@ -1,0 +1,12 @@
+version: '3'
+services:
+  postgresql:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"

@@ -11,12 +11,10 @@ import java.util.List;
 
 @Getter
 @Setter
-public class AirPortData {
-    public AirPortData() {
+public class AirPortDataResp {
+    public AirPortDataResp() {
 
     }
-    @JsonProperty("airportAppId")
-    private int airportAppId;
     @JsonProperty("departureTime")
     private String departureTime;
     @JsonProperty("destination")
@@ -25,22 +23,6 @@ public class AirPortData {
     private String destinationAirportIATA;
     @JsonProperty("flightNo")
     private String flightNo;
-    @JsonProperty("sunday")
-    private String sunday;
-    @JsonProperty("monday")
-    private String monday;
-    @JsonProperty("tuesday")
-    private String tuesday;
-    @JsonProperty("wedday")
-    private String wedday;
-    @JsonProperty("thursday")
-    private String thursday;
-    @JsonProperty("friday")
-    private String friday;
-    @JsonProperty("saturday")
-    private String saturday;
-
-
     @JsonIgnore
     private List<DayOfWeek> dayOfWeekList = new ArrayList<>();
 

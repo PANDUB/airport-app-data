@@ -1,6 +1,7 @@
 package com.app.airportapp.controller;
 
 import com.app.airportapp.entity.AirPortData;
+import com.app.airportapp.entity.AirPortDataResp;
 import com.app.airportapp.exception.RecordNotFoundException;
 import com.app.airportapp.service.AppDataService;
 import org.junit.Assert;
@@ -35,10 +36,10 @@ public class AppDataControllerTest {
     }
     @Test
     public void testControllerWithDataReturn() throws Exception {
-        List<AirPortData>  lst = new ArrayList<>();
+        List<AirPortDataResp>  lst = new ArrayList<>();
         lst.add(testData());
         Mockito.when(appDataService.getData(LocalDate.now())).thenReturn(lst);
-        ResponseEntity<List<AirPortData>> result = appDataController.fetchAppData(LocalDate.now());
+        ResponseEntity<List<AirPortDataResp>> result = appDataController.fetchAppData(LocalDate.now());
         Assert.assertNotNull(result);
         Assert.assertEquals(result.getBody().get(0).getFlightNo(),"1234");
         Assert.assertEquals(result.getBody().get(0).getDestination(),"Hyd");
@@ -47,8 +48,8 @@ public class AppDataControllerTest {
 
     }
 
-    private AirPortData testData(){
-        AirPortData a =new AirPortData();
+    private AirPortDataResp testData(){
+        AirPortDataResp a =new AirPortDataResp();
         a.setDepartureTime("09:00");
         a.setDestinationAirportIATA("RGV");
         a.setDestination("Hyd");
